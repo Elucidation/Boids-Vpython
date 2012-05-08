@@ -13,6 +13,7 @@ MinDist = 15 # m, separation distance
 VelMax = 15 # Max velocity of bird
 Radius = 0.5 # Bird radius
 doTrails = False
+ARROW_RATIO = 0.1
 
 # Tweak Constants for boids simulation
 k0 = 1 # original velocity
@@ -35,6 +36,7 @@ yaxis = curve(pos=[(0,0,0), (0,L,0)], color=(0.5,0.5,0.5))
 zaxis = curve(pos=[(0,0,0), (0,0,L)], color=(0.5,0.5,0.5))
 
 Boids = []
+Headings = []
 plist = [] # Positions
 vlist = [] # Velocities
 
@@ -51,7 +53,13 @@ for i in range(N):
   vx = -VelMax + 2*VelMax*random()
   vy = -VelMax + 2*VelMax*random()
   vz = -VelMax + 2*VelMax*random()
-
+  Headings = Headings + [arrow(
+    pos=(x,y,z),
+    axis=array((vx,vy,vz))*ARROW_RATIO,
+    shaftwidth=r,
+    color = colors[i % 6]
+    )]
+  
   plist.append( (x,y,z) )
   vlist.append( (vx,vy,vz) )
 
@@ -98,5 +106,7 @@ while True:
   for i in range(N):
     p[i] = p[i] + v[i] * dt
     Boids[i].pos = p[i]
+    Headings[i].pos = p[i]
+    Headings[i].axis = v[i]*ARROW_RATIO
 
 #  p = p + v*dt
