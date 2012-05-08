@@ -35,7 +35,7 @@ xaxis = curve(pos=[(0,0,0), (L,0,0)], color=(0.5,0.5,0.5))
 yaxis = curve(pos=[(0,0,0), (0,L,0)], color=(0.5,0.5,0.5))
 zaxis = curve(pos=[(0,0,0), (0,0,L)], color=(0.5,0.5,0.5))
 
-Boids = []
+#Boids = []
 Headings = []
 plist = [] # Positions
 vlist = [] # Velocities
@@ -47,16 +47,16 @@ for i in range(N):
   y = -L+2*L*random()
   z = -L+2*L*random()
   r = Radius
-  Boids = Boids+[sphere(pos=(x,y,z), radius=r, color=colors[i % 6],
-                   make_trail=doTrails, interval=10)]
+  #Boids = Boids+[sphere(pos=(x,y,z), radius=r, color=colors[i % 6],
+  #                 make_trail=doTrails, interval=10)]
 
   vx = -VelMax + 2*VelMax*random()
   vy = -VelMax + 2*VelMax*random()
   vz = -VelMax + 2*VelMax*random()
-  Headings = Headings + [arrow(
+  Headings = Headings + [cone(
     pos=(x,y,z),
     axis=array((vx,vy,vz))*ARROW_RATIO,
-    shaftwidth=r,
+    radius=r,
     color = colors[i % 6]
     )]
   
@@ -105,7 +105,7 @@ while True:
     
   for i in range(N):
     p[i] = p[i] + v[i] * dt
-    Boids[i].pos = p[i]
+    #Boids[i].pos = p[i]
     Headings[i].pos = p[i]
     Headings[i].axis = v[i]*ARROW_RATIO
 
